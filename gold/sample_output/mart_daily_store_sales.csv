@@ -1,0 +1,19 @@
+store_id,store_name,region,calendar_date,is_weekend,n_transactions,total_units_sold,total_revenue,avg_line_amount
+STORE-01,South Smithstad Branch,South,2026-07-23,false,4,20,22796.08,5699.02
+STORE-06,Central Brandtside Branch,Central,2026-07-23,false,4,20,39125.16,9781.29
+STORE-09,South Martinezbury Branch,South,2026-07-23,false,4,16,5239.52,1309.88
+STORE-01,South Smithstad Branch,South,2026-07-24,false,1064,3056,5321147.000000002,5001.08
+STORE-02,Bangkok Johnbury Branch,Bangkok,2026-07-24,false,932,2836,5015150.359999985,5381.06
+STORE-03,North North Jessicaland Branch,North,2026-07-24,false,972,2884,5364499.9200000055,5519.03
+STORE-04,Central East Donna Branch,Central,2026-07-24,false,988,3096,5418935.400000006,5484.75
+STORE-05,Bangkok West Allison Branch,Bangkok,2026-07-24,false,972,2928,4784828.520000005,4922.66
+STORE-06,Central Brandtside Branch,Central,2026-07-24,false,1028,3068,5111567.280000003,4972.34
+STORE-07,South Lake Larry Branch,South,2026-07-24,false,968,2932,5077840.04,5245.7
+STORE-08,Northeast Samuelhaven Branch,Northeast,2026-07-24,false,1004,2968,5610338.959999995,5587.99
+STORE-09,South Martinezbury Branch,South,2026-07-24,false,1032,3372,6020638.199999995,5833.95
+STORE-10,Northeast West Andrewside Branch,Northeast,2026-07-24,false,940,2832,4891952.280000012,5204.2
+STORE-11,Northeast New Jeffrey Branch,Northeast,2026-07-24,false,916,2784,4505312.44,4918.46
+STORE-12,Central Lake Crystalbury Branch,Central,2026-07-24,false,1120,3428,5911149.480000005,5277.81
+STORE-13,Bangkok North Micheleland Branch,Bangkok,2026-07-24,false,1052,3196,5861150.720000006,5571.44
+STORE-14,Northeast West Elizabeth Branch,Northeast,2026-07-24,false,908,2896,4957626.44000001,5459.94
+STORE-15,Central New David Branch,Central,2026-07-24,false,1032,3024,5042159.760000013,4885.81
