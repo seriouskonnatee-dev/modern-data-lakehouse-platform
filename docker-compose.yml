@@ -1,0 +1,49 @@
+# Runs a local MinIO instance as an S3-compatible object store, standing in for a real
+# cloud bucket (GCS/S3) so the Bronze/Silver landing zone behaves like real cloud
+# storage (bucket, prefixes, s3a:// paths) instead of a bare local directory -- see
+# docs/adr/0002-mock-streaming-vs-real-kafka.md.
+#
+# By default, bronze/producer.py and the Silver jobs read/write plain local paths under
+# data_lake/ (zero setup required to run this repo). This compose file is provided for
+# anyone who wants the fuller "looks like real cloud storage" experience -- point
+# --lake-root at an s3a:// path and configure PySpark's S3 connector against
+# http://localhost:9000 (MinIO's default API port) to use it.
+
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: lakehouse-minio
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # Web console
+    environment:
+      MINIO_ROOT_USER: lakehouse_admin
+      MINIO_ROOT_PASSWORD: lakehouse_dev_only   # local dev only -- never reuse in production
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # One-shot init container that creates the bronze/silver buckets on first startup,
+  # so `docker-compose up` alone is enough to get a ready-to-use lake -- no manual
+  # `mc mb` step required.
+  minio-init:
+    image: minio/mc:latest
+    container_name: lakehouse-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 lakehouse_admin lakehouse_dev_only &&
+      mc mb --ignore-existing local/lakehouse-bronze &&
+      mc mb --ignore-existing local/lakehouse-silver &&
+      echo 'MinIO buckets ready: lakehouse-bronze, lakehouse-silver'
+      "
+
+volumes:
+  minio_data:

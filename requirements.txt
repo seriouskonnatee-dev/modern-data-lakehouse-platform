@@ -1,0 +1,17 @@
+# Bronze
+faker==26.0.0
+pyarrow==17.0.0
+
+# Silver
+pyspark==3.5.1
+
+# Gold
+dbt-core==1.8.8
+dbt-duckdb==1.8.4
+duckdb==1.0.0
+
+# Tests
+pytest==8.2.2
+
+# Orchestration (only needed if actually running Airflow locally -- see orchestration/README.md)
+# apache-airflow==2.9.3

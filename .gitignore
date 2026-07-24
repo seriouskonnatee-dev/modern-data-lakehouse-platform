@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Generated data lake (regenerate via bronze/producer.py + silver/*.py -- see README)
+data_lake/
+data_lake_gen/
+data_lake_final/
+
+# dbt
+gold/target/
+gold/dbt_packages/
+gold/logs/
+gold/*.duckdb
+gold/*.duckdb.wal
+gold/profiles.yml
+
+# PySpark
+*.crc
+_SUCCESS
+metastore_db/
+spark-warehouse/
+
+# Terraform
+infra/.terraform/
+infra/.terraform.lock.hcl
+infra/*.tfstate
+infra/*.tfstate.backup
+infra/*.tfplan
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Test artifacts
+.pytest_cache/
+
