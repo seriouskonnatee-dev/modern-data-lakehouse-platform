@@ -1,0 +1,47 @@
+version: 2
+
+models:
+  - name: stg_sales_events
+    description: >
+      Staged pass over Silver sales_events_clean. One row per completed sale line item
+      (event_type = 'sale'). See docs/design.md §3.3 for the Silver contract this reads.
+    columns:
+      - name: event_id
+        description: Deduplicated event id, primary key of this staging model.
+        tests:
+          - unique
+          - not_null
+      - name: product_id
+        tests:
+          - not_null
+      - name: store_id
+        tests:
+          - not_null
+      - name: quantity
+        tests:
+          - not_null
+      - name: unit_price
+        tests:
+          - not_null
+          - accepted_range:
+              min_value: 0
+      - name: event_ts
+        tests:
+          - not_null
+
+  - name: stg_customer_profiles
+    description: >
+      Staged pass over Silver customer_profiles_clean. One row per customer profile
+      snapshot (not yet deduplicated to current-only -- that's dim_customer_scd2's job).
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+      - name: loyalty_tier
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["bronze", "silver", "gold", "platinum"]
+      - name: snapshot_ts
+        tests:
+          - not_null
