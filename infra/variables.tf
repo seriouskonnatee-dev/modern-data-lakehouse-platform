@@ -31,8 +31,8 @@ variable "labels" {
   description = "Common resource labels applied across all provisioned resources."
   type        = map(string)
   default = {
-    project = "modern-data-lakehouse-platform"
-    owner   = "data-engineering"
+    project   = "modern-data-lakehouse-platform"
+    owner     = "data-engineering"
     portfolio = "true"
   }
 }
