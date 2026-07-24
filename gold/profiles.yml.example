@@ -1,0 +1,27 @@
+# Copy this to ~/.dbt/profiles.yml (or set DBT_PROFILES_DIR to this gold/ directory).
+#
+# Default target is DuckDB, which requires zero cloud setup -- see
+# docs/adr/0003-duckdb-vs-bigquery-for-dbt.md for why this is the default for the
+# portfolio repo, and how it maps onto the BigQuery datasets provisioned in infra/.
+
+lakehouse_gold:
+  target: duckdb
+  outputs:
+
+    duckdb:
+      type: duckdb
+      path: "lakehouse_gold.duckdb"
+      threads: 4
+
+    # Production-shaped target, matching infra/bigquery.tf. Untested in this repo's CI
+    # (no live GCP project attached to the portfolio) -- documented, not guaranteed.
+    # Uncomment and fill in a real project/dataset + `gcloud auth application-default login`
+    # to use it: `dbt build --target bigquery`.
+    # bigquery:
+    #   type: bigquery
+    #   method: oauth
+    #   project: your-gcp-project-id
+    #   dataset: lakehouse_gold
+    #   threads: 4
+    #   location: asia-southeast1
+    #   priority: interactive

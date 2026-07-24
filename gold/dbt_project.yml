@@ -1,0 +1,37 @@
+name: "lakehouse_gold"
+version: "1.0.0"
+config-version: 2
+
+profile: "lakehouse_gold"
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+vars:
+  silver_lake_path: "../data_lake/silver"
+
+models:
+  lakehouse_gold:
+    staging:
+      +materialized: view
+      +schema: staging
+    marts:
+      +materialized: table
+      +schema: marts
+
+seeds:
+  lakehouse_gold:
+    +schema: seeds
+    ref_products:
+      +column_types:
+        unit_cost: DOUBLE
+        list_price: DOUBLE
+    ref_stores: {}
+    ref_customer_ids: {}

@@ -1,0 +1,9 @@
+# Optional. This project does NOT require `dbt deps` to build -- the handful of
+# dbt_utils-style helpers it would otherwise pull in (generate_surrogate_key,
+# accepted_range) are hand-rolled locally in macros/, specifically so `dbt build` works
+# offline with zero external package registry access. Uncomment if you'd rather use the
+# real dbt_utils package (e.g. for its much larger macro/test library beyond what this
+# project needs).
+# packages:
+#   - package: dbt-labs/dbt_utils
+#     version: [">=1.1.0", "<2.0.0"]
