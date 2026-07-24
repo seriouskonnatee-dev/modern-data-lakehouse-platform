@@ -1,0 +1,16 @@
+store_id,store_name,region,store_type
+STORE-01,South Smithstad Branch,South,supermarket
+STORE-02,Bangkok Johnbury Branch,Bangkok,hypermarket
+STORE-03,North North Jessicaland Branch,North,hypermarket
+STORE-04,Central East Donna Branch,Central,hypermarket
+STORE-05,Bangkok West Allison Branch,Bangkok,hypermarket
+STORE-06,Central Brandtside Branch,Central,supermarket
+STORE-07,South Lake Larry Branch,South,hypermarket
+STORE-08,Northeast Samuelhaven Branch,Northeast,supermarket
+STORE-09,South Martinezbury Branch,South,hypermarket
+STORE-10,Northeast West Andrewside Branch,Northeast,supermarket
+STORE-11,Northeast New Jeffrey Branch,Northeast,hypermarket
+STORE-12,Central Lake Crystalbury Branch,Central,express
+STORE-13,Bangkok North Micheleland Branch,Bangkok,hypermarket
+STORE-14,Northeast West Elizabeth Branch,Northeast,hypermarket
+STORE-15,Central New David Branch,Central,express
