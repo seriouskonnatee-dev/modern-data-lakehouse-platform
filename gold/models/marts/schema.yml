@@ -1,0 +1,88 @@
+version: 2
+
+models:
+  - name: dim_customer_scd2
+    description: >
+      SCD Type 2 customer dimension. One row per (customer_id, effective date range).
+      See docs/design.md §3.5 and docs/adr/0004-scd2-merge-strategy.md.
+    columns:
+      - name: customer_sk
+        tests:
+          - unique
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+      - name: is_current
+        tests:
+          - not_null
+      - name: loyalty_tier
+        tests:
+          - accepted_values:
+              values: ["bronze", "silver", "gold", "platinum"]
+    # The core SCD2 invariant -- exactly one is_current=true row per customer_id --
+    # can't be expressed with a generic column/combination test (is_current=false is
+    # legitimately non-unique per customer), so it's enforced as a singular test:
+    # see tests/assert_one_current_row_per_customer.sql.
+
+  - name: dim_product
+    columns:
+      - name: product_sk
+        tests: [unique, not_null]
+      - name: product_id
+        tests: [unique, not_null]
+
+  - name: dim_store
+    columns:
+      - name: store_sk
+        tests: [unique, not_null]
+      - name: store_id
+        tests: [unique, not_null]
+
+  - name: dim_date
+    columns:
+      - name: date_sk
+        tests: [unique, not_null]
+
+  - name: fct_sales
+    description: Sale-line grain fact table. See docs/design.md §3.6.
+    columns:
+      - name: sale_line_sk
+        tests: [unique, not_null]
+      - name: event_id
+        tests: [unique, not_null]
+      - name: product_sk
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_product')
+              field: product_sk
+      - name: store_sk
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_store')
+              field: store_sk
+      - name: date_sk
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: date_sk
+      - name: line_amount
+        tests:
+          - not_null
+
+  - name: mart_daily_store_sales
+    description: BI-ready daily revenue by store. See docs/design.md.
+    columns:
+      - name: store_id
+        tests: [not_null]
+      - name: calendar_date
+        tests: [not_null]
+
+  - name: mart_customer_ltv
+    description: One row per current customer with order history + a simplified LTV proxy.
+    columns:
+      - name: customer_sk
+        tests: [unique, not_null]
